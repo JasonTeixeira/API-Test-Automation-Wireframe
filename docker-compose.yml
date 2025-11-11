@@ -1,0 +1,97 @@
+version: '3.8'
+
+services:
+  # Full test suite
+  test-runner:
+    build:
+      context: .
+      target: test-runner
+    container_name: api-test-runner
+    volumes:
+      - ./reports:/app/reports
+      - ./logs:/app/logs
+    environment:
+      - API_BASE_URL=${API_BASE_URL:-https://reqres.in/api}
+      - API_TIMEOUT=${API_TIMEOUT:-30}
+      - LOG_LEVEL=${LOG_LEVEL:-INFO}
+    profiles:
+      - full
+
+  # Smoke tests only
+  smoke-tests:
+    build:
+      context: .
+      target: smoke-tests
+    container_name: api-smoke-tests
+    volumes:
+      - ./reports:/app/reports
+      - ./logs:/app/logs
+    environment:
+      - API_BASE_URL=${API_BASE_URL:-https://reqres.in/api}
+      - API_TIMEOUT=${API_TIMEOUT:-30}
+      - LOG_LEVEL=${LOG_LEVEL:-INFO}
+    profiles:
+      - smoke
+
+  # Users API tests
+  users-tests:
+    build:
+      context: .
+      target: users-tests
+    container_name: api-users-tests
+    volumes:
+      - ./reports:/app/reports
+      - ./logs:/app/logs
+    environment:
+      - API_BASE_URL=${API_BASE_URL:-https://reqres.in/api}
+    profiles:
+      - users
+
+  # Resources API tests
+  resources-tests:
+    build:
+      context: .
+      target: resources-tests
+    container_name: api-resources-tests
+    volumes:
+      - ./reports:/app/reports
+      - ./logs:/app/logs
+    environment:
+      - API_BASE_URL=${API_BASE_URL:-https://reqres.in/api}
+    profiles:
+      - resources
+
+  # Auth API tests
+  auth-tests:
+    build:
+      context: .
+      target: auth-tests
+    container_name: api-auth-tests
+    volumes:
+      - ./reports:/app/reports
+      - ./logs:/app/logs
+    environment:
+      - API_BASE_URL=${API_BASE_URL:-https://reqres.in/api}
+    profiles:
+      - auth
+
+  # Parallel test execution
+  parallel-tests:
+    build:
+      context: .
+      target: test-runner
+    container_name: api-parallel-tests
+    command: pytest tests/ -n 4 -v
+    volumes:
+      - ./reports:/app/reports
+      - ./logs:/app/logs
+    environment:
+      - API_BASE_URL=${API_BASE_URL:-https://reqres.in/api}
+      - API_TIMEOUT=${API_TIMEOUT:-30}
+      - LOG_LEVEL=${LOG_LEVEL:-INFO}
+    profiles:
+      - parallel
+
+networks:
+  default:
+    name: api-test-network

@@ -1,0 +1,50 @@
+# Core Testing Framework
+pytest==8.0.0
+pytest-xdist==3.5.0
+pytest-html==4.1.1
+pytest-cov==4.1.0
+pytest-timeout==2.2.0
+allure-pytest==2.13.2
+
+# HTTP Client & API Testing
+requests==2.31.0
+httpx==0.26.0
+
+# Data Validation & Models
+pydantic==2.5.3
+pydantic-settings==2.1.0
+jsonschema==4.20.0
+
+# Test Data Generation
+Faker==22.0.0
+
+# Configuration Management
+python-dotenv==1.0.0
+
+# Logging & Monitoring
+colorlog==6.8.0
+
+# Code Quality
+pylint==3.0.3
+black==24.1.1
+isort==5.13.2
+mypy==1.8.0
+types-requests==2.31.0.20240106
+
+# Performance Testing
+pytest-benchmark==4.0.0
+
+# Retry Logic
+tenacity==8.2.3
+
+# Date/Time Utilities
+python-dateutil==2.8.2
+
+# JSON Utilities
+jsonpath-ng==1.6.1
+
+# Response Time Analysis
+statistics==1.0.3.5
+
+# Coverage Reporting
+coverage[toml]==7.4.0
